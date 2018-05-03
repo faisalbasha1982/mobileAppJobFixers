@@ -1,18 +1,54 @@
-import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles } from '../../Themes/'
+import EStyleSheet from "react-native-extended-stylesheet";
+import { ApplicationStyles, Colors, Metrics, Fonts } from "../../Themes/";
 
-export default StyleSheet.create({
-  ...ApplicationStyles.screen,
+const styles = EStyleSheet.create({
   container: {
-    paddingBottom: Metrics.baseMargin
+    ...ApplicationStyles.screen.container,    
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 20,
+    margin: 20,
+    backgroundColor: Colors.jbBackground
   },
-  logo: {
-    marginTop: Metrics.doubleSection,
-    height: Metrics.images.logo,
-    width: Metrics.images.logo,
-    resizeMode: 'contain'
+  fieldView: {
+    marginVertical: Metrics.marginVertical,
+    width: "100%"
   },
-  centered: {
+  nameContainer: {
+    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  submitButton: {
+    marginTop: Metrics.doubleBaseMargin,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.burntSienna
+  },
+  checkboxContainer: {
+    marginVertical: Metrics.marginVertical,
+    flex: 1,
+    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center'
+  },
+  checkbox: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  checkboxLabel: {
+    textAlign: 'center',
+    marginHorizontal: Metrics.marginHorizontal,
+    color: Colors.drawer,
+    fontWeight: '300',
+    fontFamily: Fonts.type.openSans
   }
-})
+});
+
+export default styles;

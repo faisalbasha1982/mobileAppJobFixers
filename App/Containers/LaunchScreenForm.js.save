@@ -1,0 +1,155 @@
+OBOBOOBimport React, { Component } from 'react'
+import { 
+  ScrolOOlView, 
+  Text, BBBBBOBBO
+  Image,
+  View,  
+  KeyboardAvoidingView,
+  TouchableOpacity, 
+  TextInput,
+  Alert
+} from 'react-native';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Spinner from "react-native-loading-spinner-overlay";
+
+import { Colors } from "../Themes";
+import { Images } from '../Themes'
+import MyForm from '../Components/MyForm';
+import { Dropdown } from 'react-native-material-dropdown';
+
+// Styles
+import styles from './Styles/LaunchScreenStyles';
+
+
+export default class LaunchScreen extends Component {
+  state = {
+      phone: '',
+      name:'',
+      postalCode:'',
+      phoneError: false,
+      nameError: false,
+      postalCodeError: false,
+  };
+
+  static defaultProps = {
+    isFetching: false
+  };
+
+  constructor(props){
+    super(props);
+  }
+
+  apiCall = async () => {
+
+  }
+
+  validationPostalCode = (pcode) => {
+    let reg = '/^[0-9]{4}$/';
+
+    if(reg.test(pcode) === false)
+       this.setState({postalCodeError: true});
+    else
+       this.setState({postalCodeError:false});
+  };
+
+  validateEmail = (text) => {
+    console.log(text);
+
+    let reg = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/';
+
+    if(reg.test(text) === false)
+      {
+          console.log("Email is Not Correct");
+          this.setState({email:text})
+          return false;
+      }
+    else 
+      {
+            this.setState({email:text})
+            console.log("Email is Correct");
+      }
+
+    }
+
+  validatePhone = (phone) => {
+
+    console.log('validation phone=',phone);
+
+    // home phone number belgium
+    let homePhone = '/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/';
+    // mobile phone number belgium
+    let mPhone = '/^((\+|00)32\s?|0)4(60|[789]\d)(\s?\d{2}){3}$/';
+
+    if(homePhone.test(phone) === true || mPhone.test(phone) === true)
+          {
+            this.setState({phone: phone, phoneError: false});
+          }
+    else
+    {           
+        if(mPhone.test(phone) === false && homePhone.test(phone) === false)
+            this.setState({phoneError: true});          
+    }
+
+  }
+
+  render () {
+    let data = [
+      {
+        value: 'Construction Worker',
+      }, 
+      {
+        value: 'Worker',
+      }, 
+    ];
+    let asterisk = <Text style={{ fontWeight: 'bold', marginTop: 20, color:'red' }}>* </Text>;
+    let lbl = 'I want to work if';
+
+    return (
+                <View style={{flex:10, flexDirection: 'column' ,justifyContent: 'center', marginTop: 40, }}>
+                 <View style={{flex: 5, flexDirection: 'column',justifyContent: 'center',width: "80%", marginLeft: 35}}>
+               <Dropdown label={lbl} data={data}/>
+                <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Name</Text>
+                <TextInput
+                    style={{height: 40, borderColor: 'gray',borderBottomWidth:1}}
+                    onChangeText={(name) => this.setState({name})}
+                    value={this.state.name}
+                />
+                  <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Phone Number</Text>
+                  {
+                    (!this.state.phoneError)?                    
+                      <TextInput
+                          style={{height: 40, borderColor: 'gray', borderBottomWidth:1}}
+                          onChangeText={(phone) => this.setState({phone})}
+                          value={this.state.phone}
+                        />:                    
+                      <TextInput
+                         style={{height: 40, borderColor: 'red', borderBottomWidth:1, color:'red'}}
+                         onChangeText={(phone) => this.validatePhone(phone)}
+                         value={this.state.phone}
+                      />         
+                  }
+                     
+                <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Postal Code</Text>
+                {
+                  (!this.state.postalCodeError)?
+                      <TextInput
+                          style={{height: 40, borderColor: 'gray', borderBottomWidth:1}}
+                          onChangeText={(postalCode) => this.validationPostalCode(postalCode)}
+                          value={this.state.postalCode}/>
+                :
+                      <TextInput
+                          style={{height: 40, borderColor: 'red', color: 'red', borderBottomWidth:1}}
+                          onChangeText={(postalCode) => this.validationPostalCode(postalCode)}
+                          value={this.state.postalCode}/>
+                }
+                  
+
+            <TouchableOpacity style={{width: "20%",margin:50,marginLeft: 100, borderColor:'black',borderStyle:'solid',borderWidth:1}} onPress={this.apiCall}>
+                <Text style={{padding:10,}}>Send</Text>
+            </TouchableOpacity>
+            </View>
+            </View>
+    );
+  }
+}

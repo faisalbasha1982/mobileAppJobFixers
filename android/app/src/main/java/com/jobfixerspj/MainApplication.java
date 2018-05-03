@@ -3,6 +3,9 @@ package com.jobfixerspj;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.react_native_encryption_library.EncryptionReactPackager;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import com.tectiv3.aes.RCTAesPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -26,6 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new EncryptionReactPackager(),
+            new ReactNativeConfigPackage(),
+            new RCTAesPackage(),
             new ReactNativeI18n(),
             new VectorIconsPackage(),
             new RNDeviceInfo()

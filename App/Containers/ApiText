@@ -1,0 +1,77 @@
+Azure Login Function API Documentation
+
+URL
+
+https://prod-36.westeurope.logic.azure.com:443/workflows/6c7084b18aa14457a7d1645153ced3e7/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=TmLOvpwMBYjrnKmhdDzc-EY2gIgPIxSvGsTGbk66rgM
+
+Eg : Sign in Example with Encryption
+
+{
+
+"AuthenticationData":"EAAAAOETUOCqEtk/YEmzuRjbbB1ojjoR444zY0nXz4rfMR0RNJzgextXCgnQP/GMev7vTVp2pd5/NR1JcQYE1o64Bj4nhpIXIrSOUefe9U458Izq4r1D+1Z4EPQAqZIvwS0TMuB3kiUt+35ZjNmB4KknxeYm8GgzwhTS69ViXxxbvIrP",
+
+"firstname":"Balaji",
+
+"lastname":"Subbiah",
+
+"phonenumber":437853498,
+
+"postalcode":2880,
+
+"niche":"Payroll"
+
+}
+
+ 
+
+Eg : Sign in Example with Without Encryption Testing mode
+
+{
+
+"AuthenticationData":"{'Lang': 'fr',  'AuthID': 'JS#236734','Data':'FormSignUp','D' : '2018-04-30 7:15:12' ,'R' : 'er3rss'}",
+
+"firstname":"Balaji",
+
+"lastname":"Subbiah",
+
+"phonenumber":437853498,
+
+"postalcode":2880,
+
+"niche":"Payroll",
+
+"TestingMode":"Testing@JobFixers#09876"
+
+}
+
+ 
+
+AuthenticationData  (Encrypted by AES)
+
+ 
+
+Lang = language ( 'en' - english / 'fr' – French / 'nl' – dutch)
+
+AuthID = authentication code (JS#236734)
+
+Data= access from page ()
+
+D = date time “yyyy-MM-dd hh:mm:ss” 
+
+R = Random alpha numeric
+
+AES Security Key 
+
+JOBFIXERS@WLNOB%AES#09876
+
+ 
+
+TestingMode = "Testing@JobFixers#09876" for testing without encryption 
+
+Results:
+
+StatusCode
+
+200 = OK = If email send successfully
+
+All other statuscode it is failed then check for the message.     
